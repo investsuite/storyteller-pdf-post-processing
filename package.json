@@ -1,0 +1,16 @@
+{
+    "name": "stqs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "npx pkg -t linux,macos,win stpdf.js --out-path dist"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "chalk": "^4",
+        "muhammara": "^3.8.0",
+        "yargs": "^17.7.1"
+    }
+}
