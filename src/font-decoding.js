@@ -1,6 +1,5 @@
 const chalk = require('chalk');
 const hummus = require('muhammara');
-const { stringToByteArray } = require('./conversion');
 const { interpretContentStream } = require('./pdf-interpreter');
 
 function besToUnicodes(inArray) {
@@ -139,7 +138,7 @@ FontDecoding.prototype.getBytesFromString = function (str) {
      * Should we use the beToNum and besToUnicodes functions here?
      */
     return [...str].map((char) => {
-        const byteArray = stringToByteArray(char);
+        const byteArray = new hummus.PDFTextString(char).toBytesArray();
         return reversedUnicodeMap[byteArray[0]];
     });
 

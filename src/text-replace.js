@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const { FontDecoding } = require('./font-decoding');
-const { hexStringToByteArray, stringToByteArray, byteArrayToHexString } = require('./conversion');
+const { stringToByteArray, byteArrayToHexString } = require('./conversion');
 
 function replaceText({
     pdfWriter,
@@ -35,7 +35,7 @@ function replaceText({
         return {
             success: false,
             error: `Could not find string "${findString}" in PDF.`
-        }
+        };
     }
 
     const newPdfPageContentsAsString = pdfPageContentsAsString.replace(findStringAsHexStringInPdf, replaceStringAsHexStringInPdf);
