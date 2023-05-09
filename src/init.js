@@ -7,24 +7,22 @@ function init() {
     console.log(chalk.cyan('\nStoryTeller Post Processing'));
     console.log('This script will create a copy of the input PDF, find a string within that copy and replace it with the requested value. The modified copy can be found at the requested output location\n');
 
-    const { inputFile, outputFile, find, replace, enableLogs } = getArgs();
+    const { inputFile, outputFile, find, replace, enableDebugLogs } = getArgs();
     const pdfReader = createPdfReader({ inputFile });
     const pdfWriter = createPdfWriter({ inputFile, outputFile });
 
-    if (enableLogs) {
-        console.log(chalk.cyan('\nInput arguments:'));
-        console.log(`\tInput file: ${inputFile} (${pdfReader.getPagesCount()} pages)`);
-        console.log(`\tOutput file: ${outputFile}`);
-        console.log(`\tFind string: ${find}`);
-        console.log(`\tReplace string: ${replace}`);
-    }
+    console.log(chalk.cyan('\nInput arguments:'));
+    console.log(`\tInput file: ${inputFile} (${pdfReader.getPagesCount()} pages)`);
+    console.log(`\tOutput file: ${outputFile}`);
+    console.log(`\tFind string: ${find}`);
+    console.log(`\tReplace string: ${replace}`);
 
     return {
         pdfReader,
         pdfWriter,
         findString: find,
         replaceString: replace,
-        enableLogs,
+        enableDebugLogs,
         outputFile,
     };
 }
@@ -62,7 +60,7 @@ function getArgs() {
         outputFile: args.output,
         find: args.find,
         replace: args.replace,
-        enableLogs: args.logs === 'true'
+        enableDebugLogs: args.debug === 'true'
     };
 }
 

@@ -8,7 +8,7 @@ findAndReplaceInPdf();
 
 function findAndReplaceInPdf() {
     // Initialize a PDF reader & writer based on the input
-    const { pdfReader, pdfWriter, findString, replaceString, enableLogs, outputFile } = init();
+    const { pdfReader, pdfWriter, findString, replaceString, enableDebugLogs, outputFile } = init();
 
     // Only parse the first page of the PDF (the cover page of the report)
     // as it is the only page where we will be replacing text
@@ -17,7 +17,7 @@ function findAndReplaceInPdf() {
     // Get the font data from the first page of the PDF
     const resources = getResources({ pageDictionary, pdfReader });
 
-    if (enableLogs) {
+    if (enableDebugLogs) {
         console.log(chalk.cyan('\nAll resources on the first page:'));
         console.log(resources);
         logTextElements({ pageDictionary, pdfReader, resources });
