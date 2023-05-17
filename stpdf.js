@@ -1,3 +1,10 @@
+/**
+ * Parts of this script are based on the following example: https://github.com/galkahana/HummusJSSamples/blob/master/text-extraction/lib/text-extraction.js
+ * A useful article explaining its workings can be found here: https://www.pdfhummus.com/post/156548561656/extracting-text-from-pdf-files
+ * This script modernizes some parts of the example that are relevant for our usecase and
+ * extends its functionality by adding replacement logic to replace the extracted text within the PDF.
+ */
+
 const chalk = require('chalk');
 const { logTextElements } = require('./src/debug');
 const { init } = require('./src/init');
