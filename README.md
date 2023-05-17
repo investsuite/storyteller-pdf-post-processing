@@ -5,7 +5,7 @@ The script will first create a copy of a PDF, then find a string on the cover pa
 
 ## How to use
 
-`stpdf --input="./path-to-pdf/report.pdf" --output="./path-to-output-folder/report.pdf" --find="{name}" --replace="My Name"`
+`stpdf --input="./path-to-pdf/report.pdf" --output="./path-to-output-folder/report.pdf" --find="{client_name}" --replace="My Name"`
 
 When using a released version `stpdf` should be replaced with the path to the executable.
 
