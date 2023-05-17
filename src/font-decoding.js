@@ -116,46 +116,47 @@ function toUnicodeEncoding(toUnicodeMap, bytes) {
     return result;
 }
 
-
-function FontDecoding(pdfReader, fontObject) {
-    parseFontData(this, pdfReader, fontObject);
-}
-
-FontDecoding.prototype.translate = function (encodedBytes) {
-    if (this.hasToUnicode) {
-        return { result: toUnicodeEncoding(this.toUnicodeMap, encodedBytes), method: 'toUnicode' };
-    } else {
-        console.log(chalk.yellow('Font without toUnicode detected, these are not supported and could lead to undesired results for the text replacement'));
+class FontDecoding {
+    constructor({ pdfReader, fontObject }) {
+        parseFontData(this, pdfReader, fontObject);
     }
-};
 
-FontDecoding.prototype.getBytesFromString = function (str) {
-    const reversedUnicodeMap = flipToUnicodeMap(this.toUnicodeMap);
+    translate(encodedBytes) {
+        if (this.hasToUnicode) {
+            return { result: toUnicodeEncoding(this.toUnicodeMap, encodedBytes), method: 'toUnicode' };
+        } else {
+            console.log(chalk.yellow('Font without toUnicode detected, these are not supported and could lead to undesired results for the text replacement'));
+        }
+    };
 
-    /**
-     * todo: this only works if the byte array has a length of one
-     * will this cause issues for certain characters/fonts?
-     * Should we use the beToNum and besToUnicodes functions here?
-     */
-    return [...str].map((char) => {
-        const byteArray = new hummus.PDFTextString(char).toBytesArray();
-        return reversedUnicodeMap[byteArray[0]];
-    });
+    getBytesFromString(str) {
+        const reversedUnicodeMap = flipToUnicodeMap(this.toUnicodeMap);
 
-    /**
-     * { a: [1], b: [2] } => { 1: a, 2: b }
-    * todo: this only works if the byte array has a length of one
-     * will this cause issues for certain characters/fonts?
-     * Should we use the beToNum and besToUnicodes functions here?
-     */
-    function flipToUnicodeMap(data) {
-        const newMap = {};
-        Object.keys(data).forEach((key) => {
-            newMap[data[key][0]] = Number(key);
+        /**
+         * todo: this only works if the byte array has a length of one
+         * will this cause issues for certain characters/fonts?
+         * Should we use the beToNum and besToUnicodes functions here?
+         */
+        return [...str].map((char) => {
+            const byteArray = new hummus.PDFTextString(char).toBytesArray();
+            return reversedUnicodeMap[byteArray[0]];
         });
-        return newMap;
-    }
-};
+
+        /**
+         * { a: [1], b: [2] } => { 1: a, 2: b }
+        * todo: this only works if the byte array has a length of one
+         * will this cause issues for certain characters/fonts?
+         * Should we use the beToNum and besToUnicodes functions here?
+         */
+        function flipToUnicodeMap(data) {
+            const newMap = {};
+            Object.keys(data).forEach((key) => {
+                newMap[data[key][0]] = Number(key);
+            });
+            return newMap;
+        }
+    };
+}
 
 module.exports = {
     FontDecoding,

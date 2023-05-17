@@ -1,16 +1,27 @@
 {
-    "name": "stqs",
+    "name": "storyteller-pdf-post-processing",
     "version": "0.1.0",
-    "description": "",
-    "main": "index.js",
+    "description": "A script to edit a StoryTeller PDF post-generation in order to change a string on the cover page of that PDF.",
     "scripts": {
-        "build": "npx pkg -t linux,macos,win stpdf.js --out-path dist"
+        "build": "npx pkg ."
     },
-    "author": "",
+    "author": "InvestSuite",
     "license": "ISC",
     "dependencies": {
         "chalk": "^4",
         "muhammara": "^3.8.0",
         "yargs": "^17.7.1"
+    },
+    "bin": "./stpdf.js",
+    "pkg": {
+        "assets": [
+            "node_modules/**/*"
+        ],
+        "targets": [
+            "linux",
+            "macos",
+            "win"
+        ],
+        "outputPath": "dist"
     }
 }

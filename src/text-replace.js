@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const { FontDecoding } = require('./font-decoding');
 const { stringToByteArray, byteArrayToHexString } = require('./conversion');
 
@@ -116,7 +115,7 @@ function getFontDecoder({
     objectId,
 }) {
     const fontObject = pdfReader.parseNewObject(objectId).toPDFDictionary();
-    return new FontDecoding(pdfReader, fontObject);
+    return new FontDecoding({ pdfReader, fontObject });
 }
 
 module.exports = {
